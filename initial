@@ -1,0 +1,155 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <cstdlib>
+using namespace std;
+
+//variables
+int main() {
+  string item1Name;
+  string item2Name;
+  string itemName;
+  float item1Price;
+  float item2Price;
+  float itemPrice;
+  int item1Amount;
+  int item2Amount;
+  int itemAmount;
+  int whattobuy;
+  char coin;
+  float totalinserted;
+  float change;
+  int choice;
+
+    //naming items
+    cout << "Enter the name of item 1: ";
+    cin >> item1Name;
+    cout << "Enter the name of item 2: ";
+    cin >> item2Name;  
+    
+    //pricing items
+    while (true) {
+        cout << "Enter the price of item 1 (multiple of $0.25): ";
+        cin >> item1Price;
+    
+        if (abs(round(item1Price * 4) - item1Price * 4) > 0) {
+        cout << "Not a valid input, must be multiple of $0.25" << endl;
+        }else {
+        break;}
+    }
+    while (true) {
+        cout << "Enter the price of item 2 (multiple of $0.25): ";
+        cin >> item2Price;
+    
+        if (abs(round(item2Price * 4) - item2Price * 4) > 0) {
+        cout << "Not a valid input, must be multiple of $0.25" << endl;
+        }else {
+        break;
+        }
+        
+    }
+    
+    //amount of items
+    while (true){
+        cout << "Enter initial amount of item 1 (greater than 0): ";
+        cin >> item1Amount;
+        
+        if (item1Amount <= 0){
+            cout << "Not a valid input, must be greater than 0" << endl;
+        } else {
+            break;
+        }
+    }
+    while (true){
+        cout << "Enter initial amount of item 2 (greater than 0): ";
+        cin >> item2Amount;
+        if (item2Amount <= 0){
+            cout << "Not a valid input, must be greater than 0" << endl;
+        } else {
+            break;}
+    }
+
+    //main code
+    while (true){
+        cout << "Would you like to buy an item? \n";
+        cout << "1. " << item1Name << " $" << item1Price << " (" << item1Amount << " available) \n" ;
+        cout << "2. " << item2Name << " $" << item2Price << " (" << item2Amount << " available) \n" ;
+        cout << "0. Quit \n";
+        cin >> choice;
+        if (choice == 0){
+            cout << "Thanks for visiting!";
+            break;
+        }
+        else if (choice == 1){
+            itemName = item1Name;
+            itemPrice = item1Price;
+            itemAmount = item1Amount;
+            
+        }
+        
+        else if (choice == 2){
+            itemName = item2Name;
+            itemPrice = item2Price;
+            itemAmount = item2Amount;
+            
+        }
+        
+        else {
+            cout << "Not a valid input. Press 1, 2, or 0 \n";
+            continue;
+        }
+        
+        if (itemAmount <= 0){
+            cout << itemName << " is sold out. Choose another item. \n";
+            continue; } 
+
+        else{
+        //inserting coins
+            while (true){
+                cout << "Insert coins. 1 for $1. 2 for $0.25. 0 to quit.\n";
+                cin >> coin;
+                if (coin == '1'){
+                    totalinserted += 1;
+        
+                }
+                else if (coin =='2'){
+                    totalinserted +=0.25;
+        
+                }
+                else if (coin == '0'){
+                    cout << "Not enough money. Your change is $" << totalinserted << endl;
+                    totalinserted = 0;
+                    break;
+                }
+                
+                else {
+                    cout << "Not a valid coin. Press 1, 2, or 0 \n";
+                }
+                //runs when enough money is inserted
+                if (totalinserted >= itemPrice){
+                    cout << "You bought " << itemName << ". Your change is $" << totalinserted-itemPrice << endl;
+                    totalinserted = 0;
+                    if (choice == 1){
+                        item1Amount--;
+                    }
+                    if (choice == 2){
+                        item2Amount--;
+                    }
+                    break;
+                }
+                
+                cout << "Total inserted: $" << totalinserted << endl;
+                cout << "Cost: $" << itemPrice << endl;
+
+            }        
+
+        }
+
+
+            
+            
+    }
+
+
+
+    return 0;}
